@@ -3,14 +3,14 @@ security:
     client:
       clientId: statistics-service
       clientSecret: ${STATISTICS_SERVICE_PASSWORD}
-      accessTokenUri: http://auth-service:5000/uaa/oauth/token
+      accessTokenUri: http://localhost:5000/uaa/oauth/token
       grant-type: client_credentials
       scope: server
 
 spring:
   data:
     mongodb:
-      host: statistics-mongodb
+      host: 127.0.0.1
       username: user
       password: ${MONGODB_PASSWORD}
       database: piggymetrics
@@ -22,4 +22,9 @@ server:
   port: 7000
 
 rates:
-  url: https://api.exchangeratesapi.io
+#  url: https://api.exchangeratesapi.io
+  url: https://api.exchangerate-api.com/v4/latest/USD
+
+eureka:
+  instance:
+    prefer-ip-address: true  # 强制使用 IP 注册，而不是主机名

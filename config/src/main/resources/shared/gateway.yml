@@ -17,9 +17,9 @@ zuul:
     socket-timeout-millis: 20000
 
   routes:
-    auth-service:
+    localhost:
         path: /uaa/**
-        url: http://auth-service:5000
+        url: http://localhost:5000
         stripPrefix: false
         sensitiveHeaders:
 
@@ -43,3 +43,8 @@ zuul:
 
 server:
   port: 4000
+
+
+eureka:
+  instance:
+    prefer-ip-address: true  # 强制使用 IP 注册，而不是主机名

@@ -1,2 +1,6 @@
 server:
   port: 8761
+
+eureka:
+  instance:
+    prefer-ip-address: true  # 核心：告诉所有服务，注册时报 IP，不要报主机名

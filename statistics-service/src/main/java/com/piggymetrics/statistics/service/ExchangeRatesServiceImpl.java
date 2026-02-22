@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -28,19 +29,31 @@ public class ExchangeRatesServiceImpl implements ExchangeRatesService {
 	/**
 	 * {@inheritDoc}
 	 */
+//	@Override
+//	public Map<Currency, BigDecimal> getCurrentRates() {
+//
+//		if (container == null || !container.getDate().equals(LocalDate.now())) {
+//			container = client.getRates(Currency.getBase());
+//			log.info("exchange rates has been updated: {}", container);
+//		}
+//
+//		return ImmutableMap.of(
+//				Currency.EUR, container.getRates().get(Currency.EUR.name()),
+//				Currency.RUB, container.getRates().get(Currency.RUB.name()),
+//				Currency.USD, BigDecimal.ONE
+//		);
+//	}
+
 	@Override
 	public Map<Currency, BigDecimal> getCurrentRates() {
+		// 1. 手动构造硬编码的汇率表
+		Map<Currency, BigDecimal> rates = new HashMap<>();
+		rates.put(Currency.getBase(), BigDecimal.ONE); // 自动匹配基准货币（通常是 USD）
+		rates.put(Currency.USD, BigDecimal.ONE);
+		rates.put(Currency.EUR, new BigDecimal("0.9"));
 
-		if (container == null || !container.getDate().equals(LocalDate.now())) {
-			container = client.getRates(Currency.getBase());
-			log.info("exchange rates has been updated: {}", container);
-		}
-
-		return ImmutableMap.of(
-				Currency.EUR, container.getRates().get(Currency.EUR.name()),
-				Currency.RUB, container.getRates().get(Currency.RUB.name()),
-				Currency.USD, BigDecimal.ONE
-		);
+		// 2. 这里的逻辑是关键：既然不发网络请求了，直接返回这个 Map
+		return rates;
 	}
 
 	/**

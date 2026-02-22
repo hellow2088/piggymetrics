@@ -3,7 +3,13 @@ spring:
     name: gateway
   cloud:
     config:
-      uri: http://config:8888
+      uri: http://localhost:8888
       fail-fast: true
-      password: ${CONFIG_SERVICE_PASSWORD}
+      password: ${CONFIG_SERVICE_PASSWORD:123456}
       username: user
+eureka:
+  instance:
+    prefer-ip-address: true  # 强制使用 IP 注册，解决网关找不到主机的 UnknownHostException
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

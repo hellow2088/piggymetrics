@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      host: auth-mongodb
+      host: 127.0.0.1
       username: user
       password: ${MONGODB_PASSWORD}
       database: piggymetrics
@@ -11,3 +11,8 @@ server:
   servlet:
     context-path: /uaa
   port: 5000
+
+
+eureka:
+  instance:
+    prefer-ip-address: true  # 强制使用 IP 注册，而不是主机名
